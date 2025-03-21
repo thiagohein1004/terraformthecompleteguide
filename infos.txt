@@ -1,0 +1,3 @@
+https://github.com/thiagohein1004/terraformthecompleteguide.git
+https://github.com/lm-academy/terraform-aws-networking-tf-course
+https://github.com/lm-academy/terraform-course-example-terraform-cloud

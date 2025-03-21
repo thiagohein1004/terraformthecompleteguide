@@ -1,0 +1,6 @@
+Creating VPCs and Subnets Manually in AWS
+https://github.com/lm-academy/terraform-course-example-terraform-cloud
+Creating VPCs and Subnets with Terraform and IaC
+https://github.com/lm-academy/terraform-course/blob/main/exercises/exercise02-terraform.md
+Understanding the Different Terraform Stages
+https://github.com/lm-academy/terraform-course/blob/main/exercises/exercise03-terraform_stages.md
