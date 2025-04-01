@@ -1,0 +1,4 @@
+https://github.com/lm-academy/terraform-course/blob/main/exercises/exercise04-hcl.md
+
+https://github.com/lm-academy/terraform-course/blob/main/exercises/exercise05-first_tf_project.md
+
