@@ -1,0 +1,111 @@
+Excelente! Esse código é um ótimo exemplo de como trabalhar com **múltiplas regiões da AWS** usando o **mesmo provedor com alias**. Vamos detalhar tudo passo a passo para entender o que ele faz:
+
+---
+
+## 🧱 Bloco `terraform`
+
+```hcl
+terraform {
+  required_version = "~> 1.7"
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 5.0"
+    }
+  }
+}
+```
+
+### ✅ O que faz:
+- Garante que você esteja usando o Terraform **1.7 ou superior**, até antes da versão 2.0.
+- Especifica que o provedor `aws` será baixado da **HashiCorp** e deve estar na versão **5.x**.
+
+---
+
+## ☁️ Blocos `provider "aws"`
+
+```hcl
+provider "aws" {
+  region = "eu-west-1"
+}
+```
+
+### ✅ Provedor padrão
+- Define a **região padrão como `eu-west-1` (Irlanda)**.
+- Todos os recursos que **não especificarem um alias** vão usar essa configuração.
+
+---
+
+```hcl
+provider "aws" {
+  region = "us-east-1"
+  alias  = "us-east"
+}
+```
+
+### ✅ Provedor com alias
+- Esse segundo bloco define **um alias chamado `us-east`** para o provedor `aws`.
+- Ele aponta para a região `us-east-1` (Virgínia do Norte).
+- Esse alias será usado explicitamente nos recursos que devem ser criados nessa região.
+
+---
+
+## 📦 Recursos S3
+
+### 1. Bucket na região padrão (`eu-west-1`)
+```hcl
+resource "aws_s3_bucket" "eu_west_1" {
+  bucket = "some-random-bucket-name-aosdhfoadhfu"
+}
+```
+
+#### ✅ O que faz:
+- Cria um bucket chamado `some-random-bucket-name-aosdhfoadhfu`.
+- Como **não tem o argumento `provider`**, o Terraform usa o provedor padrão (`eu-west-1`).
+
+---
+
+### 2. Bucket usando o alias (`us-east-1`)
+```hcl
+resource "aws_s3_bucket" "us_east_1" {
+  bucket   = "some-random-bucket-name-18736481364"
+  provider = aws.us-east
+}
+```
+
+#### ✅ O que faz:
+- Cria outro bucket chamado `some-random-bucket-name-18736481364`.
+- Esse bucket será criado na **região `us-east-1`** (Virgínia), pois especifica o **alias `aws.us-east`**.
+
+---
+
+## 🔁 Fluxo geral de execução
+
+1. O Terraform baixa o provedor AWS (`hashicorp/aws`) versão 5.x.
+2. Configura **duas regiões**:
+   - `eu-west-1` como padrão
+   - `us-east-1` como alias
+3. Cria **dois buckets S3**, cada um em uma região diferente.
+
+---
+
+## 🧠 Dica extra: uso prático
+
+Esse padrão é muito útil quando você precisa:
+
+- Criar **recursos em múltiplas regiões** (como backups ou replicações).
+- Separar ambientes entre regiões.
+- Fazer **cross-region replication** de buckets, por exemplo.
+
+---
+
+## ✅ Resumo final
+
+| Recurso                     | Região usada   | Provedor                  |
+|----------------------------|----------------|---------------------------|
+| `aws_s3_bucket.eu_west_1`  | `eu-west-1`     | `provider "aws"` padrão    |
+| `aws_s3_bucket.us_east_1`  | `us-east-1`     | `provider "aws" { alias = "us-east" }` |
+
+---
+
+Se quiser, posso mostrar como fazer **replicação entre esses buckets** ou usar `for_each` para criar recursos em várias regiões com uma estrutura dinâmica. Quer evoluir para esse exemplo?
