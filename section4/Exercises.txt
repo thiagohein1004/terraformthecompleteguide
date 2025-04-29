@@ -2,3 +2,5 @@ https://github.com/lm-academy/terraform-course/blob/main/exercises/exercise04-hc
 
 https://github.com/lm-academy/terraform-course/blob/main/exercises/exercise05-first_tf_project.md
 
+https://github.com/lm-academy/terraform-course/blob/main/exercises/exercise07-s3_backend.md
+
